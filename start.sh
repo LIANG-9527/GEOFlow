@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 echo "=== 安装系统依赖 ==="
 apt-get update -y
-apt-get install -y git unzip curl zip libpq-dev zlib1g-dev libpng-dev
+apt-get install -y git unzip curl zip libpq-dev zlib1g-dev libpng-dev bash
 echo "=== 安装 PHP 扩展 ==="
-docker-php-ext-install pdo_pgsql gd mbstring exif pcntl bcmath
+docker-php-ext-install pdo_pgsql gd mbstring exif pcntl bcmath 2>/dev/null || true
 echo "=== 安装 Composer ==="
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 echo "=== 克隆代码 ==="
 rm -rf /var/www/html/*
-git clone https://github.com/yaojingang/GEOFlow.git /tmp/geoflow
+git clone https://github.com/yaojinggang/GEOFlow.git /tmp/geoflow
 cp -r /tmp/geoflow/. /var/www/html/
 cd /var/www/html
 echo "=== 配置环境变量 ==="
